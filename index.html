@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shopify Tools</title>
+    <meta
+      name="description"
+      content="Essential bookmarklets for Shopify developers and merchandisers"
+    />
+
+    <style>
+      :root {
+        --shopify-green: #00a651;
+        --shopify-dark: #004c3f;
+        --shopify-light: #f6f6f7;
+        --text-primary: #202223;
+        --text-secondary: #6d7175;
+        --border-color: #e1e3e5;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background: linear-gradient(135deg, #f8fffe 0%, #f0f8f7 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background: white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+      }
+
+      .header-content {
+        padding: 30px 0;
+        text-align: center;
+      }
+
+      .logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: var(--shopify-green);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      h1 {
+        color: var(--text-primary);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+      }
+
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--text-primary);
+        color: white;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+      }
+
+      .github-link:hover {
+        background: #000;
+        transform: translateY(-1px);
+      }
+
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+      }
+
+      .tool-card {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+      }
+
+      .tool-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+      }
+
+      .tool-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .tool-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+      }
+
+      .tool-icon.admin {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .tool-icon.preview {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      }
+
+      .tool-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+      }
+
+      .tool-description {
+        color: var(--text-secondary);
+        margin-bottom: 24px;
+        line-height: 1.6;
+      }
+
+      .bookmarklet-button {
+        display: inline-block;
+        background: linear-gradient(
+          135deg,
+          var(--shopify-green) 0%,
+          #00d563 100%
+        );
+        color: white;
+        text-decoration: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 18px;
+        cursor: move;
+        border: 3px dashed rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        position: relative;
+        box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+        text-align: center;
+        min-width: 240px;
+        user-select: none;
+        word-break: keep-all;
+        white-space: nowrap;
+      }
+
+      .bookmarklet-button:hover {
+        background: linear-gradient(
+          135deg,
+          var(--shopify-dark) 0%,
+          #006b3f 100%
+        );
+        border-color: rgba(255, 255, 255, 0.6);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 166, 81, 0.4);
+      }
+
+      .bookmarklet-button:active {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 10px rgba(0, 166, 81, 0.3);
+      }
+
+      .bookmarklet-button:before {
+        content: "📌 ";
+        margin-right: 8px;
+        font-size: 20px;
+      }
+
+      .installation {
+        background: #f8f9fa;
+        border-left: 4px solid var(--shopify-green);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .installation h3 {
+        color: var(--shopify-dark);
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+      }
+
+      .installation ol {
+        margin-left: 20px;
+      }
+
+      .installation li {
+        margin-bottom: 8px;
+        color: var(--text-secondary);
+      }
+
+      .features {
+        margin-top: 20px;
+      }
+
+      .features h4 {
+        color: var(--text-primary);
+        margin-bottom: 12px;
+        font-size: 1rem;
+      }
+
+      .features ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .features li {
+        padding: 4px 0;
+        color: var(--text-secondary);
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .features li:before {
+        content: "✓";
+        color: var(--shopify-green);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .warning {
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 8px;
+        padding: 16px;
+        margin: 20px 0;
+      }
+
+      .warning h4 {
+        color: #856404;
+        margin-bottom: 8px;
+      }
+
+      .warning p {
+        color: #856404;
+        margin: 0;
+        font-size: 14px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 40px 0;
+        color: var(--text-secondary);
+        border-top: 1px solid var(--border-color);
+        background: white;
+        margin-top: 60px;
+      }
+
+      .show-code-btn {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .show-code-btn:hover {
+        background: var(--border-color);
+      }
+
+      .copy-fallback code {
+        background: #e9ecef;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "Monaco", "Menlo", monospace;
+        font-size: 12px;
+        word-break: break-all;
+      }
+
+      .show-code-btn {
+        background: none;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        padding: 6px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        margin-left: 12px;
+        transition: all 0.2s ease;
+      }
+
+      .copy-fallback {
+        display: none;
+        background: #f8f9fa;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 12px;
+      }
+
+      .copy-fallback {
+        display: none;
+        background: #f8f9fa;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .tools-grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .tool-card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header-content">
+            <div>
+              <h1>Shopify Tools</h1>
+              <p class="subtitle">
+                Bookmarklets for faster Shopify development
+              </p>
+          </div>
+          <a
+            href="https://github.com/ashleyvilleneuveuncommon/shopify-tools"
+            class="github-link"
+          >
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path
+                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="installation">
+        <h3>🚀 Quick Installation</h3>
+        <ol>
+          <li>
+            <strong>Drag</strong> the green button below to your browser's
+            bookmarks bar
+          </li>
+          <li><strong>Navigate</strong> to any Shopify store</li>
+          <li><strong>Click</strong> the bookmark to use the tool</li>
+        </ol>
+        <p>
+          <em
+            >Note: If dragging doesn't work, click "Show Code" to copy the
+            bookmark manually.</em
+          >
+        </p>
+      </div>
+
+      <div class="tools-grid">
+        <!-- Admin Navigator Tool -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon admin">🎯</div>
+            <div>
+              <h2 class="tool-title">Admin Navigator</h2>
+            </div>
+          </div>
+
+          <p class="tool-description">
+            Jump directly from any Shopify storefront page to the corresponding
+            admin page. Works with products, collections, pages, blog articles,
+            and more!
+          </p>
+
+          <div class="bookmarklet-container">
+            <div class="drag-instruction">
+              Drag this button to your bookmarks bar!
+            </div>
+            <a
+              href="javascript:(function(){'use strict';try{let shopDomain;if(window.Shopify&&window.Shopify.shop){shopDomain=window.Shopify.shop;}else{shopDomain=window.location.hostname;if(!shopDomain.includes('myshopify.com')){alert('Unable to determine Shopify shop domain. This might not be a Shopify store.');return;}}const shopHandle=shopDomain.replace('.myshopify.com','');const baseAdminUrl=`https://admin.shopify.com/store/${shopHandle}`;const currentPath=window.location.pathname;const currentUrl=window.location.href;let adminUrl;if(currentPath==='/'||currentPath===''){adminUrl=`${baseAdminUrl}/themes`;}else if(currentPath.startsWith('/products/')){let productId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.product){productId=window.ShopifyAnalytics.meta.product.id;}if(!productId){const productIdMeta=document.querySelector('meta[property=&quot;product:id&quot;]')||document.querySelector('meta[name=&quot;product:id&quot;]');if(productIdMeta){productId=productIdMeta.content;}}if(!productId){fetch(`${currentUrl}.json`).then(response=>response.json()).then(data=>{if(data.product&&data.product.id){window.open(`${baseAdminUrl}/products/${data.product.id}`,'_blank');}else{alert('Could not find product ID');}}).catch(()=>{alert('Could not fetch product data');});return;}adminUrl=`${baseAdminUrl}/products/${productId}`;}else if(currentPath.startsWith('/collections/')){const collectionHandle=currentPath.replace('/collections/','').split('?')[0].split('/')[0];let collectionId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.collection){collectionId=window.ShopifyAnalytics.meta.collection.id;}if(!collectionId){fetch(`/collections/${collectionHandle}.json`).then(response=>response.json()).then(data=>{if(data.collection&&data.collection.id){window.open(`${baseAdminUrl}/collections/${data.collection.id}`,'_blank');}else{window.open(`${baseAdminUrl}/collections`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/collections`,'_blank');});return;}adminUrl=`${baseAdminUrl}/collections/${collectionId}`;}else if(currentPath.startsWith('/blogs/')){const pathParts=currentPath.split('/').filter(part=>part);if(pathParts.length===2){const blogHandle=pathParts[1];fetch(`/blogs/${blogHandle}.json`).then(response=>response.json()).then(data=>{if(data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}else if(pathParts.length===3){const blogHandle=pathParts[1];const articleHandle=pathParts[2];let articleId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.article){articleId=window.ShopifyAnalytics.meta.article.id;}if(articleId){fetch(`/blogs/${blogHandle}.json`).then(response=>response.json()).then(data=>{if(data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}/articles/${articleId}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}else{fetch(`/blogs/${blogHandle}/${articleHandle}.json`).then(response=>response.json()).then(data=>{if(data.article&&data.article.id&&data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}/articles/${data.article.id}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}}}else if(currentPath.startsWith('/pages/')){const pageHandle=currentPath.replace('/pages/','').split('?')[0];let pageId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.page){pageId=window.ShopifyAnalytics.meta.page.id;}if(!pageId){fetch(`/pages/${pageHandle}.json`).then(response=>response.json()).then(data=>{if(data.page&&data.page.id){window.open(`${baseAdminUrl}/pages/${data.page.id}`,'_blank');}else{window.open(`${baseAdminUrl}/pages`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/pages`,'_blank');});return;}adminUrl=`${baseAdminUrl}/pages/${pageId}`;}else if(currentPath==='/cart'){adminUrl=`${baseAdminUrl}/settings/checkout`;}else{adminUrl=`${baseAdminUrl}/themes`;}if(adminUrl){window.open(adminUrl,'_blank');}}catch(error){console.error('Shopify Admin Navigator Error:',error);alert('Error navigating to admin. Check console for details.');}})();"
+              class="bookmarklet-button"
+            >
+              → Shopify Admin
+            </a>
+            <button class="show-code-btn" onclick="toggleCode('admin-code')">
+              Show Code
+            </button>
+          </div>
+
+          <div id="admin-code" class="copy-fallback">
+            <p>
+              <strong>Manual Installation:</strong> Copy this code and paste it
+              as the URL when creating a new bookmark:
+            </p>
+            <code
+              >javascript:(function(){'use strict';try{let
+              shopDomain;if(window.Shopify&&window.Shopify.shop){shopDomain=window.Shopify.shop;}else{shopDomain=window.location.hostname;if(!shopDomain.includes('myshopify.com')){alert('Unable
+              to determine Shopify shop domain. This might not be a Shopify
+              store.');return;}}const
+              shopHandle=shopDomain.replace('.myshopify.com','');const
+              baseAdminUrl=`https://admin.shopify.com/store/${shopHandle}`;const
+              currentPath=window.location.pathname;const
+              currentUrl=window.location.href;let
+              adminUrl;if(currentPath==='/'||currentPath===''){adminUrl=`${baseAdminUrl}/themes`;}else
+              if(currentPath.startsWith('/products/')){let
+              productId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.product){productId=window.ShopifyAnalytics.meta.product.id;}if(!productId){const
+              productIdMeta=document.querySelector('meta[property="product:id"]')||document.querySelector('meta[name="product:id"]');if(productIdMeta){productId=productIdMeta.content;}}if(!productId){fetch(`${currentUrl}.json`).then(response=>response.json()).then(data=>{if(data.product&&data.product.id){window.open(`${baseAdminUrl}/products/${data.product.id}`,'_blank');}else{alert('Could
+              not find product ID');}}).catch(()=>{alert('Could not fetch
+              product
+              data');});return;}adminUrl=`${baseAdminUrl}/products/${productId}`;}else
+              if(currentPath.startsWith('/collections/')){const
+              collectionHandle=currentPath.replace('/collections/','').split('?')[0].split('/')[0];let
+              collectionId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.collection){collectionId=window.ShopifyAnalytics.meta.collection.id;}if(!collectionId){fetch(`/collections/${collectionHandle}.json`).then(response=>response.json()).then(data=>{if(data.collection&&data.collection.id){window.open(`${baseAdminUrl}/collections/${data.collection.id}`,'_blank');}else{window.open(`${baseAdminUrl}/collections`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/collections`,'_blank');});return;}adminUrl=`${baseAdminUrl}/collections/${collectionId}`;}else
+              if(currentPath.startsWith('/blogs/')){const
+              pathParts=currentPath.split('/').filter(part=>part);if(pathParts.length===2){const
+              blogHandle=pathParts[1];fetch(`/blogs/${blogHandle}.json`).then(response=>response.json()).then(data=>{if(data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}else
+              if(pathParts.length===3){const blogHandle=pathParts[1];const
+              articleHandle=pathParts[2];let
+              articleId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.article){articleId=window.ShopifyAnalytics.meta.article.id;}if(articleId){fetch(`/blogs/${blogHandle}.json`).then(response=>response.json()).then(data=>{if(data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}/articles/${articleId}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}else{fetch(`/blogs/${blogHandle}/${articleHandle}.json`).then(response=>response.json()).then(data=>{if(data.article&&data.article.id&&data.blog&&data.blog.id){window.open(`${baseAdminUrl}/blogs/${data.blog.id}/articles/${data.article.id}`,'_blank');}else{window.open(`${baseAdminUrl}/blogs`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/blogs`,'_blank');});return;}}}else
+              if(currentPath.startsWith('/pages/')){const
+              pageHandle=currentPath.replace('/pages/','').split('?')[0];let
+              pageId;if(window.ShopifyAnalytics&&window.ShopifyAnalytics.meta&&window.ShopifyAnalytics.meta.page){pageId=window.ShopifyAnalytics.meta.page.id;}if(!pageId){fetch(`/pages/${pageHandle}.json`).then(response=>response.json()).then(data=>{if(data.page&&data.page.id){window.open(`${baseAdminUrl}/pages/${data.page.id}`,'_blank');}else{window.open(`${baseAdminUrl}/pages`,'_blank');}}).catch(()=>{window.open(`${baseAdminUrl}/pages`,'_blank');});return;}adminUrl=`${baseAdminUrl}/pages/${pageId}`;}else
+              if(currentPath==='/cart'){adminUrl=`${baseAdminUrl}/settings/checkout`;}else{adminUrl=`${baseAdminUrl}/themes`;}if(adminUrl){window.open(adminUrl,'_blank');}}catch(error){console.error('Shopify
+              Admin Navigator Error:',error);alert('Error navigating to admin.
+              Check console for details.');}})();</code
+            >
+          </div>
+
+          <div class="features">
+            <h4>✨ Features:</h4>
+            <ul>
+              <li>Works with products, collections, pages, blog articles</li>
+              <li>Fetches resource IDs via JSON endpoints</li>
+              <li>Handles custom domains automatically</li>
+              <li>Opens the corresponding admin page in a new tab</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Preview Bar Unhider Tool -->
+        <div class="tool-card">
+          <div class="tool-header">
+            <div class="tool-icon preview">🔧</div>
+            <div>
+              <h2 class="tool-title">Preview Bar Unhider</h2>
+            </div>
+          </div>
+
+          <p class="tool-description">
+            Force the Shopify preview bar to show when it's been hidden by
+            themes or apps.
+          </p>
+
+          <a
+            href="javascript:(function(){var found=false;var fixedElements=[];var previewBarSelectors=['#PBarNextFrame','#PBarNextFrameWrapper','.PBarNextFrameWrapper','#preview-bar-iframe','[id*=&quot;preview&quot;]','[class*=&quot;preview-bar&quot;]','[class*=&quot;PreviewBar&quot;]','iframe[src*=&quot;preview_bar&quot;]'];function makeVisible(element,selector){if(!element)return false;var styles=window.getComputedStyle(element);var isHidden=styles.display==='none'||styles.visibility==='hidden'||styles.opacity==='0'||parseFloat(styles.opacity)<0.1;if(isHidden){element.style.setProperty('display','block','important');element.style.setProperty('visibility','visible','important');element.style.setProperty('opacity','1','important');element.style.setProperty('z-index','999999','important');element.style.setProperty('position','fixed','important');element.style.setProperty('bottom','0','important');element.style.setProperty('left','0','important');element.style.setProperty('right','0','important');element.style.setProperty('width','100%','important');element.style.setProperty('height','auto','important');element.style.setProperty('min-height','40px','important');element.style.removeProperty('top');fixedElements.push({element:element,selector:selector,wasHidden:isHidden,computedDisplay:styles.display,computedVisibility:styles.visibility,computedOpacity:styles.opacity});return true;}return false;}for(var i=0;i<previewBarSelectors.length;i++){var elements=document.querySelectorAll(previewBarSelectors[i]);for(var j=0;j<elements.length;j++){if(makeVisible(elements[j],previewBarSelectors[i])){found=true;}}}var customStyle=document.createElement('style');customStyle.id='force-preview-bar-visible';customStyle.innerHTML='#PBarNextFrame,#PBarNextFrameWrapper,.PBarNextFrameWrapper,#preview-bar-iframe,[id*=&quot;preview&quot;],[class*=&quot;preview-bar&quot;],[class*=&quot;PreviewBar&quot;],iframe[src*=&quot;preview_bar&quot;]{display:block!important;visibility:visible!important;opacity:1!important;z-index:999999!important;}#PBarNextFrame,#PBarNextFrameWrapper{position:fixed!important;bottom:0!important;left:0!important;right:0!important;width:100%!important;height:auto!important;min-height:40px!important;}';var existingStyle=document.getElementById('force-preview-bar-visible');if(existingStyle){existingStyle.remove();}document.head.appendChild(customStyle);var body=document.body;if(body){var currentPaddingBottom=window.getComputedStyle(body).paddingBottom;var paddingValue=parseInt(currentPaddingBottom)||0;if(paddingValue<40){body.style.setProperty('padding-bottom','50px','important');}}console.log('Preview Bar Unhider - Elements found:',fixedElements);if(found||fixedElements.length>0){alert('Preview bar unhidden! Found '+fixedElements.length+' hidden elements. Check console for details.');}else{alert('No hidden preview bar found. All preview elements may already be visible.');}})();"
+            class="bookmarklet-button"
+          >
+            🔧 Show Preview Bar
+          </a>
+
+          <button class="show-code-btn" onclick="toggleCode('preview-code')">
+            Show Code
+          </button>
+
+          <div id="preview-code" class="copy-fallback">
+            <p>
+              <strong>Manual Installation:</strong> Copy this code and paste it
+              as the URL when creating a new bookmark:
+            </p>
+            <code
+              >javascript:(function(){'use strict';try{let found=false;let
+              fixedElements=[];const
+              previewBarSelectors=['#PBarNextFrame','.PBarNextFrameWrapper','#preview-bar-iframe','[id*="preview"]','[class*="preview-bar"]','[class*="PreviewBar"]','iframe[src*="preview_bar"]'];function
+              makeVisible(element,selector){if(!element)return false;const
+              originalDisplay=window.getComputedStyle(element).display;const
+              originalVisibility=window.getComputedStyle(element).visibility;const
+              originalOpacity=window.getComputedStyle(element).opacity;if(originalDisplay==='none'||originalVisibility==='hidden'||originalOpacity==='0'){element.style.setProperty('display','block','important');element.style.setProperty('visibility','visible','important');element.style.setProperty('opacity','1','important');element.style.setProperty('z-index','999999','important');element.style.setProperty('position','fixed','important');element.style.setProperty('top','0','important');element.style.setProperty('left','0','important');element.style.setProperty('right','0','important');element.style.setProperty('width','100%','important');element.style.setProperty('height','auto','important');element.style.setProperty('min-height','40px','important');fixedElements.push({element:element,selector:selector,wasHidden:true});return
+              true;}return
+              false;}previewBarSelectors.forEach(selector=>{try{const
+              elements=document.querySelectorAll(selector);elements.forEach(element=>{if(makeVisible(element,selector)){found=true;}});}catch(e){console.log('Error
+              with
+              selector:',selector,e);}});if(window.parent&&window.parent!==window){try{previewBarSelectors.forEach(selector=>{try{const
+              elements=window.parent.document.querySelectorAll(selector);elements.forEach(element=>{if(makeVisible(element,selector+'
+              (parent)')){found=true;}});}catch(e){}});}catch(e){console.log('Could
+              not access parent window:',e);}}function fixCSSRules(){try{const
+              styleSheets=document.styleSheets;for(let
+              i=0;i<styleSheets.length;i++){try{const
+              rules=styleSheets[i].cssRules||styleSheets[i].rules;if(rules){for(let
+              j=0;j<rules.length;j++){const
+              rule=rules[j];if(rule.selectorText&&rule.style){const
+              selector=rule.selectorText.toLowerCase();if(selector.includes('preview')||selector.includes('pbar')||selector.includes('#PBarNextFrame'.toLowerCase())||selector.includes('.PBarNextFrameWrapper'.toLowerCase())){if(rule.style.display==='none'){rule.style.setProperty('display','block','important');found=true;}if(rule.style.visibility==='hidden'){rule.style.setProperty('visibility','visible','important');found=true;}if(rule.style.opacity==='0'){rule.style.setProperty('opacity','1','important');found=true;}}}}}}catch(e){}}catch(e){console.log('Error
+              accessing stylesheets:',e);}}fixCSSRules();const
+              customStyle=document.createElement('style');customStyle.id='force-preview-bar-visible';customStyle.innerHTML='#PBarNextFrame,.PBarNextFrameWrapper,#preview-bar-iframe,[id*="preview"],[class*="preview-bar"],[class*="PreviewBar"],iframe[src*="preview_bar"]{display:block!important;visibility:visible!important;opacity:1!important;z-index:999999!important;}#PBarNextFrame{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:auto!important;min-height:40px!important;}';const
+              existingStyle=document.getElementById('force-preview-bar-visible');if(existingStyle){existingStyle.remove();}document.head.appendChild(customStyle);const
+              body=document.body;if(body){const
+              currentPaddingTop=window.getComputedStyle(body).paddingTop;const
+              paddingValue=parseInt(currentPaddingTop)||0;if(paddingValue<40){body.style.setProperty('padding-top','50px','important');body.style.setProperty('margin-top','0','important');}}if(found||fixedElements.length>0){const
+              message='Preview bar unhidden! Fixed '+fixedElements.length+'
+              element(s):\n'+fixedElements.map(item=>'-
+              '+item.selector).join('\n');alert(message);console.log('Preview
+              Bar Unhider Results:',fixedElements);}else{const
+              allIframes=document.querySelectorAll('iframe');let
+              foundHiddenIframe=false;allIframes.forEach((iframe,index)=>{const
+              src=iframe.src||'';if(src.includes('shopify')||src.includes('preview')||iframe.id.includes('preview')||iframe.className.includes('preview')){if(makeVisible(iframe,'iframe['+index+']
+              - potential preview
+              bar')){foundHiddenIframe=true;}}});if(foundHiddenIframe){alert('Found
+              and unhid potential preview bar iframe!');}else{alert('No hidden
+              preview bar elements found. The preview bar might already be
+              visible or not present on this
+              page.');}}}catch(error){console.error('Preview Bar Unhider
+              Error:',error);alert('Error trying to unhide preview bar. Check
+              console for details.');}})();</code
+            >
+          </div>
+
+          <div class="features">
+            <h4>✨ Features:</h4>
+            <ul>
+              <li>Forces visibility with !important CSS overrides</li>
+              <li>Scans CSS rules to remove hiding styles</li>
+              <li>Works in iframes and parent windows</li>
+              <li>Adjusts page padding to make room</li>
+              <li>Provides detailed feedback on fixes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning">
+        <h4>⚠️ Important Notes</h4>
+        <p>
+          These tools are designed for development and debugging purposes.
+          Always test thoroughly before using on production stores. The Admin
+          Navigator requires you to be logged into the Shopify admin for the
+          target store.
+        </p>
+      </div>
+
+    
+
+    <footer>
+      <div class="container">
+        <p>Made with ❤️ for Shopify developers everywhere</p>
+        <p style="margin-top: 8px; font-size: 14px">
+          <a
+            href="https://github.com/ashleyvilleneuveuncommon/shopify-tools"
+            style="color: var(--shopify-green)"
+            >Contribute on GitHub</a
+          >
+          |
+          <a
+            href="https://github.com/ashleyvilleneuveuncommon/shopify-tools/issues"
+            style="color: var(--shopify-green)"
+            >Report Issues</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleCode(id) {
+        const element = document.getElementById(id);
+        const button = event.target;
+
+        if (element.style.display === "none" || element.style.display === "") {
+          element.style.display = "block";
+          button.textContent = "Hide Code";
+        } else {
+          element.style.display = "none";
+          button.textContent = "Show Code";
+        }
+      }
+
+      // Set up the preview bar button href after page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        const previewButton = document.getElementById("preview-bar-button");
+        if (previewButton) {
+          const bookmarkletCode =
+            previewButton.getAttribute("data-bookmarklet");
+          previewButton.href = bookmarkletCode;
+        }
+      });
+
+      // Add some visual feedback when dragging bookmarklets
+      document.querySelectorAll(".bookmarklet-button").forEach((button) => {
+        button.addEventListener("dragstart", function (e) {
+          this.style.opacity = "0.7";
+          this.style.transform = "rotate(2deg) scale(0.95)";
+        });
+
+        button.addEventListener("dragend", function (e) {
+          this.style.opacity = "1";
+          this.style.transform = "none";
+
+          // Show success message
+          setTimeout(() => {
+            alert(
+              "🎉 Bookmarklet added! You can now use it on any Shopify store."
+            );
+          }, 500);
+        });
+      });
+
+      // Add click handler for mobile users who can't drag
+      document.querySelectorAll(".bookmarklet-button").forEach((button) => {
+        button.addEventListener("click", function (e) {
+          if (window.innerWidth < 768) {
+            e.preventDefault();
+            const codeId = this.parentElement
+              .querySelector(".show-code-btn")
+              .onclick.toString()
+              .match(/toggleCode\('(.+?)'\)/)[1];
+            toggleCode(codeId);
+            alert(
+              '📱 On mobile? Use the "Show Code" button to copy the bookmark manually!'
+            );
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
